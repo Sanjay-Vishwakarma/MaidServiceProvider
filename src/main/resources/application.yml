@@ -1,0 +1,40 @@
+server:
+  port: 9090  # Default port, can be overridden by profiles
+  servlet:
+    context-path: /api/v1
+
+spring:
+  application:
+    name: MaidServiceProvider
+  profiles:
+    active: prod  # Default profile; can be changed to 'prod' or overridden at runtime
+
+# Dev profile settings
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: maid_service
+
+server:
+  port: 9090
+
+
+# Prod profile settings
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  data:
+    mongodb:
+      uri: mongodb+srv://sjroot9:gvBZZkzcKXWGGRru@recharge.xniae.mongodb.net/?retryWrites=true&w=majority
+      database: maid_service_prod
+
+server:
+  port: 8080
+
