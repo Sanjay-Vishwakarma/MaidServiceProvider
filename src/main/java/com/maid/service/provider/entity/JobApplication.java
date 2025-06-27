@@ -1,6 +1,8 @@
 package com.maid.service.provider.entity;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -31,6 +33,6 @@ public class JobApplication {
     private Integer experience;
     private List<String> languages;
 
-    private String aadharCardPath;
-    private String imagePath;
+    private String aadharCardUrl;
+    private String profileImageUrl;
 }
