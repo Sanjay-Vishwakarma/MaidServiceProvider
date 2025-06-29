@@ -7,7 +7,7 @@ spring:
   application:
     name: MaidServiceProvider
   profiles:
-    active: dev  # Default profile; can be changed to 'prod' or overridden at runtime
+    active: prod  # Default profile; can be changed to 'prod' or overridden at runtime
 
 cloudinary:
   cloud-name: djrxcaxbc
