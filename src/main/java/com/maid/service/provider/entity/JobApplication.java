@@ -1,11 +1,14 @@
 package com.maid.service.provider.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -35,4 +38,8 @@ public class JobApplication {
 
     private String aadharCardUrl;
     private String profileImageUrl;
+
+    private LocalDateTime createdAt;
+
+    private String createdAtFormatted;
 }

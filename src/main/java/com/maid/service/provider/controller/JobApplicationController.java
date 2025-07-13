@@ -12,6 +12,9 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 import java.util.UUID;
 
 @CrossOrigin("*")
@@ -39,11 +42,13 @@ public class JobApplicationController {
         if (!isValidImage(aadharCard) || !isValidImage(image)) {
             return ResponseEntity.badRequest().body("Only JPG, JPEG, or PNG files are allowed.");
         }
-
+        String name = dto.getFullName().replace(" ","_");
         // Upload images to Cloudinary
         String imageId = UUID.randomUUID().toString().replace("-","").substring(0,4);
-         String aadharUrl = cloudinaryService.uploadImage(aadharCard);
-        String imageUrl = cloudinaryService.uploadImage(image);
+        String aadharName = name+"_"+"aadhar_" + imageId;
+        String profileName = name+"_"+"profile_" + imageId;
+        String aadharUrl = cloudinaryService.uploadImage(aadharCard,aadharName);
+        String imageUrl = cloudinaryService.uploadImage(image,profileName);
 
         if (aadharUrl == null || imageUrl == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed.");
@@ -51,8 +56,12 @@ public class JobApplicationController {
 
         // Map DTO to Entity
         JobApplication application = modelMapper.map(dto, JobApplication.class);
-        application.setAadharCardUrl(aadharUrl+"_"+imageId);
-        application.setProfileImageUrl(imageUrl+"_"+imageId);
+        application.setCreatedAt(LocalDateTime.now());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a", new Locale("hi", "IN"));
+        String formattedDate = application.getCreatedAt().format(formatter);
+        application.setCreatedAtFormatted(formattedDate);
+        application.setAadharCardUrl(aadharUrl);
+        application.setProfileImageUrl(imageUrl);
 
         // Save application to DB
         jobApplicationService.saveJobApplication(application);

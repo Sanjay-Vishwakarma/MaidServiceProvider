@@ -29,6 +29,9 @@ public class ContactDto {
     private String operatingSystem;
     private String deviceType;
     private String ipAddress;
+    private String city;
+    private String region;
+    private String country;
 
 
 }

@@ -2,9 +2,11 @@ package com.maid.service.provider.controller;
 
 import com.maid.service.provider.dto.ContactDto;
 import com.maid.service.provider.dto.FeedBackDto;
+import com.maid.service.provider.dto.GeoLocation;
 import com.maid.service.provider.dto.InquiryDetailsDto;
 import com.maid.service.provider.service.MaidService;
 import com.maid.service.provider.util.Functions;
+import com.maid.service.provider.util.GeoLocationService;
 import com.maid.service.provider.util.Response;
 import com.maid.service.provider.util.Functions.UserAgentDetails;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,20 +48,31 @@ public class MaidServiceController {
     private void enrichWithRequestMeta(Object dto, HttpServletRequest request) {
         String ipAddress = Functions.extractClientIp(request);
         UserAgentDetails userAgentDetails = Functions.extractUserAgentDetails(request);
+        GeoLocation geoLocation = GeoLocationService.getGeoLocation(ipAddress);
 
         if (dto instanceof ContactDto contactDto) {
             contactDto.setIpAddress(ipAddress);
             contactDto.setOperatingSystem(userAgentDetails.getOperatingSystem());
             contactDto.setDeviceType(userAgentDetails.getDeviceType());
+            contactDto.setCity(geoLocation.getCity());
+            contactDto.setRegion(geoLocation.getRegion());
+            contactDto.setCountry(geoLocation.getCountry());
         } else if (dto instanceof FeedBackDto feedBackDto) {
             feedBackDto.setIpAddress(ipAddress);
             feedBackDto.setOperatingSystem(userAgentDetails.getOperatingSystem());
             feedBackDto.setDeviceType(userAgentDetails.getDeviceType());
+            feedBackDto.setCity(geoLocation.getCity());
+            feedBackDto.setRegion(geoLocation.getRegion());
+            feedBackDto.setCountry(geoLocation.getCountry());
         } else if (dto instanceof InquiryDetailsDto inquiryDetailsDto) {
             inquiryDetailsDto.setIpAddress(ipAddress);
             inquiryDetailsDto.setOperatingSystem(userAgentDetails.getOperatingSystem());
             inquiryDetailsDto.setDeviceType(userAgentDetails.getDeviceType());
+            inquiryDetailsDto.setCity(geoLocation.getCity());
+            inquiryDetailsDto.setRegion(geoLocation.getRegion());
+            inquiryDetailsDto.setCountry(geoLocation.getCountry());
         }
     }
+
 
 }

@@ -7,6 +7,8 @@ import com.maid.service.provider.dto.InquiryDetailsDto;
 import com.maid.service.provider.entity.ContactDetails;
 import com.maid.service.provider.entity.FeedBackDetails;
 import com.maid.service.provider.entity.InquiryDetails;
+import com.maid.service.provider.helper.PageHelper;
+import com.maid.service.provider.helper.PageableResponse;
 import com.maid.service.provider.repository.ContactRepository;
 import com.maid.service.provider.repository.FeedbackRepository;
 import com.maid.service.provider.repository.InquiryDetailsRepository;
@@ -14,10 +16,15 @@ import com.maid.service.provider.service.MaidService;
 import com.maid.service.provider.util.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public  class MaidServiceImpl implements MaidService {
@@ -35,7 +42,8 @@ public  class MaidServiceImpl implements MaidService {
     @Autowired
     private ModelMapper modelMapper ;
 
-
+    @Autowired
+    private PageHelper pageHelper;
 
 
     @Override
@@ -79,6 +87,27 @@ public  class MaidServiceImpl implements MaidService {
             // Log the exception (recommended in real applications)
             return new Response(500, "Failed to submit inquiry: " + e.getMessage(), null);
         }
+    }
+
+    @Override
+    public PageableResponse<ContactDto> getAllContacts(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<ContactDetails> contactPage = contactRepository.findAll(pageable);
+        return pageHelper.getPageableResponse(contactPage, ContactDto.class);
+    }
+
+    @Override
+    public PageableResponse<FeedBackDto> getAllFeedbacks(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<FeedBackDetails> feedbackPage = feedbackRepository.findAll(pageable);
+        return pageHelper.getPageableResponse(feedbackPage, FeedBackDto.class);
+    }
+
+    @Override
+    public PageableResponse<InquiryDetailsDto> getAllInquiryDetails(int page, int size) {
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdDate").descending());
+        Page<InquiryDetails> inquiryPage = inquiryDetailsRepository.findAll(pageable);
+        return pageHelper.getPageableResponse(inquiryPage, InquiryDetailsDto.class);
     }
 
 }

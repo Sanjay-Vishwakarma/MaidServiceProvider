@@ -22,4 +22,8 @@ public class FeedBackDetails {
     private String ipAddress;         // User's IP address
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
+
+    private String city;
+    private String region;
+    private String country;
 }

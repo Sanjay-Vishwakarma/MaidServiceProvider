@@ -2,6 +2,8 @@ package com.maid.service.provider.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -35,5 +37,9 @@ public class JobApplicationDTO {
     private Integer expectedSalary;
     private Integer experience;
 
+    private String aadharCardUrl;
+    private String profileImageUrl;
+    private LocalDateTime createdAt;
+    private String createdAtFormatted;
     private List<String> languages;
 }

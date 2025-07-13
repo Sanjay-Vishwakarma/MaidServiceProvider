@@ -26,5 +26,9 @@ public class ContactDetails {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
     private LocalDateTime createdAt;
 
+    private String city;
+    private String region;
+    private String country;
+
 
 }

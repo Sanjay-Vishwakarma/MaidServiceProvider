@@ -17,12 +17,19 @@ public class CloudinaryService {
     @Autowired
     private Cloudinary cloudinary;
 
-    public String uploadImage(MultipartFile image) {
+    public String uploadImage(MultipartFile image , String fileName)  {
         try {
-            // Upload the image to Cloudinary
-            Map uploadResult = cloudinary.uploader().upload(image.getBytes(), ObjectUtils.emptyMap());
 
-            // Extract the public_id from the uploadResult
+            String  folderName = "Maid_Service";
+            String fullPublicId = folderName + "/" + fileName;
+            System.out.println("fullPublicId = " + fullPublicId);
+            Map<String, Object> uploadParams = ObjectUtils.asMap(
+                    "public_id", fullPublicId,
+                    "overwrite", true
+                    //"type", "authenticated"  // 🔐 Make it private (non-public)
+
+            );
+            Map uploadResult = cloudinary.uploader().upload(image.getBytes(), uploadParams);
             String publicId = (String) uploadResult.get("public_id");
 
             // Use the Cloudinary URL generation method with transformation
@@ -43,5 +50,13 @@ public class CloudinaryService {
             return null;  // In case of error, return null
         }
     }
+
+
+    //  no one can directly access url
+//    String signedUrl = cloudinary.url()
+//            .secure(true)
+//            .signed(true)
+//            .version("1.0")  // Optional: from DB or upload result
+//            .generate("Maid_Service/profile_1234");
 
 }
