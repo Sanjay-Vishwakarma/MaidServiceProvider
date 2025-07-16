@@ -14,7 +14,6 @@ cloudinary:
   api-key: 165721923489928
   api-secret: ZdzyHrMrhVNeh9vtxG09CBvP3Uw
 
-
 # Dev profile settings
 ---
 spring:
@@ -29,6 +28,8 @@ spring:
 server:
   port: 9090
 
+health:
+  check: http://localhost:9090/api/v1/systemCheck
 # Prod profile settings
 ---
 spring:
@@ -42,4 +43,7 @@ spring:
 
 server:
   port: 8080
+
+health:
+  check: https://maidserviceprovider.onrender.com/api/v1/systemCheck
 
