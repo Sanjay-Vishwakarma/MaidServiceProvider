@@ -8,22 +8,6 @@ spring:
     name: MaidServiceProvider
   profiles:
     active: prod  # Default profile; can be changed to 'prod' or overridden at runtime
-
-cloudinary:
-  cloud-name: djrxcaxbc
-  api-key: 165721923489928
-  api-secret: ZdzyHrMrhVNeh9vtxG09CBvP3Uw
-
-# Dev profile settings
----
-spring:
-  config:
-    activate:
-      on-profile: dev
-  data:
-    mongodb:
-      uri: mongodb://localhost:27017
-      database: maid_service
   mail:
     host: smtp.gmail.com
     port: 587
@@ -47,6 +31,23 @@ spring:
     mode: HTML
     cache: false  # Optional: helpful during development
 
+cloudinary:
+  cloud-name: djrxcaxbc
+  api-key: 165721923489928
+  api-secret: ZdzyHrMrhVNeh9vtxG09CBvP3Uw
+
+
+
+# Dev profile settings
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  data:
+    mongodb:
+      uri: mongodb://localhost:27017
+      database: maid_service
 
 server:
   port: 9090
