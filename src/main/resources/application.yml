@@ -24,6 +24,29 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017
       database: maid_service
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: webhosttest2023@gmail.com
+    password: uaapgyupqjvtbjbz
+    protocol: smtp
+    default-encoding: UTF-8
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: HTML
+    cache: false  # Optional: helpful during development
+
 
 server:
   port: 9090

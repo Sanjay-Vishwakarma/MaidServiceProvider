@@ -15,9 +15,15 @@ public class GeoLocationService {
         GeoLocation location = new GeoLocation();
 
         try {
-            URL url = new URL("https://ipapi.co/" + ip + "/json/");
+            String token = "c12990c256f87a"; // Replace with your actual token
+            URL url = new URL("https://ipinfo.io/" + ip + "/json?token=" + token);
             HttpURLConnection con = (HttpURLConnection) url.openConnection();
             con.setRequestMethod("GET");
+
+            int status = con.getResponseCode();
+            if (status != 200) {
+                throw new AppException("Failed to fetch location. HTTP Status: " , String.valueOf(status));
+            }
 
             BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
             String inputLine;
@@ -30,16 +36,16 @@ public class GeoLocationService {
 
             JSONObject json = new JSONObject(responseContent.toString());
 
-            location.setCity(json.optString("city"));
-            location.setRegion(json.optString("region"));
-            location.setCountry(json.optString("country_name"));
+            location.setCity(json.optString("city", "Unknown"));
+            location.setRegion(json.optString("region", "Unknown"));
+            location.setCountry(json.optString("country", "Unknown"));
 
         } catch (Exception e) {
             e.printStackTrace();
-            throw new AppException("Failed to get geo location: " , e.getMessage());
-
+            throw new AppException("Failed to get geo location", e.getMessage());
         }
 
         return location;
     }
+
 }
