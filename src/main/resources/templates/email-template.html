@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${type == 'job'} ? 'New Job Application' : 'New Service Inquiry'">New Submission</title>
+    <style>
+        /* Base Styles */
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            color: #4a5568;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Container */
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Card */
+        .email-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            margin: 40px 0;
+        }
+
+        /* Header */
+        .email-header {
+            background: linear-gradient(135deg, #4a6fa5 0%, #3a5a8a 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .email-header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Content */
+        .email-content {
+            padding: 30px;
+        }
+
+        .intro-text {
+            font-size: 16px;
+            color: #4a5568;
+            margin-bottom: 25px;
+        }
+
+        /* Detail Items */
+        .detail-item {
+            margin-bottom: 18px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #4a6fa5;
+            width: 120px;
+            flex-shrink: 0;
+        }
+
+        .detail-value {
+            flex: 1;
+            min-width: 200px;
+            color: #2d3748;
+        }
+
+        .highlight {
+            color: #4a6fa5;
+            font-weight: 500;
+        }
+
+        /* Message Box */
+        .message-box {
+            background-color: #f8fafc;
+            border-left: 4px solid #4a6fa5;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+            font-style: italic;
+        }
+
+        /* Footer */
+        .email-footer {
+            text-align: center;
+            padding: 20px;
+            background-color: #f5f7fa;
+            color: #718096;
+            font-size: 14px;
+            border-top: 1px solid #edf2f7;
+        }
+
+        .company-name {
+            font-weight: 600;
+            color: #2d3748;
+            margin-bottom: 5px;
+        }
+
+        .timestamp {
+            font-size: 13px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Adjustments */
+        @media only screen and (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .email-header {
+                padding: 25px 15px;
+            }
+
+            .email-header h1 {
+                font-size: 20px;
+            }
+
+            .email-content {
+                padding: 20px 15px;
+            }
+
+            .detail-item {
+                flex-direction: column;
+            }
+
+            .detail-label {
+                width: 100%;
+                margin-bottom: 5px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <div class="email-card">
+        <div class="email-header">
+            <h1 th:text="${type == 'job'} ? 'New Job Application Received' : 'New Client Inquiry Received'">
+                New Submission
+            </h1>
+        </div>
+
+        <div class="email-content">
+            <p class="intro-text">
+                You have received a new <span class="highlight" th:text="${type == 'job'} ? 'job application' : 'service inquiry'">submission</span> via your website.
+                Please review the details below:
+            </p>
+
+            <div class="detail-item">
+                <span class="detail-label">Name:</span>
+                <span class="detail-value highlight" th:text="${name}"></span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Email:</span>
+                <span class="detail-value highlight" th:text="${email}"></span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Mobile:</span>
+                <span class="detail-value highlight" th:text="${mobile}"></span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label" th:text="${type == 'job'} ? 'Position:' : 'Service Type:'">Type:</span>
+                <span class="detail-value highlight" th:text="${type}"></span>
+            </div>
+
+            <div class="detail-item">
+                <span class="detail-label">Message:</span>
+                <div class="message-box" th:text="${message}">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="email-footer">
+            <div class="company-name">24in Maid Service</div>
+            <div>Email: <a href="mailto:24inmaidservice@gmail.com" style="color: #4a6fa5; text-decoration: none;">24inmaidservice@gmail.com</a></div>
+            <div class="timestamp" th:text="${#dates.format(#dates.createNow(), 'dd MMM yyyy, hh:mm a')}">
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

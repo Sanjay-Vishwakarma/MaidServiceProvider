@@ -2,6 +2,7 @@ package com.maid.service.provider.serviceImpl;
 
 
 import com.maid.service.provider.dto.ContactDto;
+import com.maid.service.provider.dto.EmailRequest;
 import com.maid.service.provider.dto.FeedBackDto;
 import com.maid.service.provider.dto.InquiryDetailsDto;
 import com.maid.service.provider.entity.ContactDetails;
@@ -12,6 +13,7 @@ import com.maid.service.provider.helper.PageableResponse;
 import com.maid.service.provider.repository.ContactRepository;
 import com.maid.service.provider.repository.FeedbackRepository;
 import com.maid.service.provider.repository.InquiryDetailsRepository;
+import com.maid.service.provider.service.EmailService;
 import com.maid.service.provider.service.MaidService;
 import com.maid.service.provider.util.Response;
 import org.modelmapper.ModelMapper;
@@ -45,6 +47,8 @@ public  class MaidServiceImpl implements MaidService {
     @Autowired
     private PageHelper pageHelper;
 
+    @Autowired
+    private EmailService emailService;
 
     @Override
     public Response saveContactDetails(ContactDto contactDto) {
@@ -52,6 +56,16 @@ public  class MaidServiceImpl implements MaidService {
             ContactDetails contactDetails = modelMapper.map(contactDto, ContactDetails.class);
             contactDetails.setCreatedAt(LocalDateTime.now());
             ContactDetails savedContact = contactRepository.save(contactDetails);
+            EmailRequest  emailRequest = new EmailRequest();
+            emailRequest.setMobileNumber(contactDetails.getPhoneNumber());
+            emailRequest.setEmail(contactDetails.getEmail());
+            emailRequest.setRecipientName(contactDetails.getFullName());
+            emailRequest.setMessage(contactDetails.getDescription());
+            emailRequest.setMailType("Contact");
+            // send the email
+            Response response = emailService.sendMail(emailRequest);
+//            System.out.println("email contact : "+response);
+
             return new Response(201, "Contact details saved successfully", savedContact);
         } catch (Exception e) {
             return new Response(500, "Failed to save contact details: " + e.getMessage(), null);
@@ -79,6 +93,15 @@ public  class MaidServiceImpl implements MaidService {
             inquiryDetails.setCreatedAt(LocalDateTime.now());
             // Save to DB
             InquiryDetails savedInquiry = inquiryDetailsRepository.save(inquiryDetails);
+            EmailRequest  emailRequest = new EmailRequest();
+            emailRequest.setMobileNumber(inquiryDetailsDto.getPhone());
+            emailRequest.setEmail(inquiryDetailsDto.getEmail());
+            emailRequest.setRecipientName(inquiryDetailsDto.getName());
+            emailRequest.setMessage(inquiryDetailsDto.getDescription());
+            emailRequest.setMailType("Contact");
+            // send the email
+            Response response = emailService.sendMail(emailRequest);
+
 
             // Return success response
             return new Response(201, "Inquiry submitted successfully", savedInquiry);
