@@ -40,7 +40,7 @@ public class JobApplicationServiceImpl  implements JobApplicationService {
         emailRequest.setEmail("for job application");
         emailRequest.setRecipientName(jobApplication.getFullName());
         emailRequest.setMessage(jobApplication.getWorkLocation());
-        emailRequest.setMailType("Contact");
+        emailRequest.setMailType("Job");
         // send the email
         Response response = emailService.sendMail(emailRequest);
 //            System.out.println("email contact : "+response);
