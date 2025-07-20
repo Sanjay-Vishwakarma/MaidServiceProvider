@@ -98,7 +98,7 @@ public  class MaidServiceImpl implements MaidService {
             emailRequest.setEmail(inquiryDetailsDto.getEmail());
             emailRequest.setRecipientName(inquiryDetailsDto.getName());
             emailRequest.setMessage(inquiryDetailsDto.getDescription());
-            emailRequest.setMailType("Contact");
+            emailRequest.setMailType("Inquiry");
             // send the email
             Response response = emailService.sendMail(emailRequest);
 
