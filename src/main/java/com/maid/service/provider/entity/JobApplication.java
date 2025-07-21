@@ -39,7 +39,7 @@ public class JobApplication {
     private String aadharCardUrl;
     private String profileImageUrl;
 
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     private String createdAtFormatted;
 }

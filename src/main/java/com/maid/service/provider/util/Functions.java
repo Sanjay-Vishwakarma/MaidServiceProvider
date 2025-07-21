@@ -4,6 +4,10 @@ import eu.bitwalker.useragentutils.UserAgent;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+
 public class Functions {
 
 
@@ -33,5 +37,17 @@ public class Functions {
         private String operatingSystem;
         private String deviceType;
     }
+
+    public static String getCurrentDateTimeIST() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime istTime = LocalDateTime.now(ZoneId.of("Asia/Kolkata"));
+        return istTime.format(formatter);
+    }
+
+    public static LocalDateTime parseCreatedAt(String createdAtStr) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        return LocalDateTime.parse(createdAtStr, formatter);
+    }
+
 
 }
