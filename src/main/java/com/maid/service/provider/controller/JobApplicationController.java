@@ -5,6 +5,7 @@ import com.maid.service.provider.dto.JobApplicationDTO;
 import com.maid.service.provider.entity.JobApplication;
 import com.maid.service.provider.service.JobApplicationService;
 import com.maid.service.provider.util.CloudinaryService;
+import com.maid.service.provider.util.Functions;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,9 +57,10 @@ public class JobApplicationController {
 
         // Map DTO to Entity
         JobApplication application = modelMapper.map(dto, JobApplication.class);
-        application.setCreatedAt(LocalDateTime.now());
+        application.setCreatedAt(Functions.getCurrentDateTimeIST());
+        LocalDateTime createdAtDateTime = Functions.parseCreatedAt(application.getCreatedAt());
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy, hh:mm a", new Locale("hi", "IN"));
-        String formattedDate = application.getCreatedAt().format(formatter);
+        String formattedDate = createdAtDateTime.format(formatter);
         application.setCreatedAtFormatted(formattedDate);
         application.setAadharCardUrl(aadharUrl);
         application.setProfileImageUrl(imageUrl);

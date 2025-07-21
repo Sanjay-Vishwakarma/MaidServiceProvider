@@ -15,6 +15,7 @@ import com.maid.service.provider.repository.FeedbackRepository;
 import com.maid.service.provider.repository.InquiryDetailsRepository;
 import com.maid.service.provider.service.EmailService;
 import com.maid.service.provider.service.MaidService;
+import com.maid.service.provider.util.Functions;
 import com.maid.service.provider.util.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Service
 public  class MaidServiceImpl implements MaidService {
@@ -54,7 +52,7 @@ public  class MaidServiceImpl implements MaidService {
     public Response saveContactDetails(ContactDto contactDto) {
         try {
             ContactDetails contactDetails = modelMapper.map(contactDto, ContactDetails.class);
-            contactDetails.setCreatedAt(LocalDateTime.now());
+            contactDetails.setCreatedAt(Functions.getCurrentDateTimeIST());
             ContactDetails savedContact = contactRepository.save(contactDetails);
             EmailRequest  emailRequest = new EmailRequest();
             emailRequest.setMobileNumber(contactDetails.getPhoneNumber());
@@ -77,7 +75,7 @@ public  class MaidServiceImpl implements MaidService {
     public Response saveFeedbackDetails(FeedBackDto feedBackDto) {
         try {
             FeedBackDetails feedback = modelMapper.map(feedBackDto,FeedBackDetails.class);
-            feedback.setCreatedAt(LocalDateTime.now());
+            feedback.setCreatedAt(Functions.getCurrentDateTimeIST());
             FeedBackDetails savedFeedback = feedbackRepository.save(feedback);
             return new Response(HttpStatus.CREATED.value(), "Feedback submitted successfully", savedFeedback);
         } catch (Exception e) {
@@ -90,7 +88,7 @@ public  class MaidServiceImpl implements MaidService {
         try {
             // DTO to Entity mapping
             InquiryDetails inquiryDetails = modelMapper.map(inquiryDetailsDto, InquiryDetails.class);
-            inquiryDetails.setCreatedAt(LocalDateTime.now());
+            inquiryDetails.setCreatedAt(Functions.getCurrentDateTimeIST());
             // Save to DB
             InquiryDetails savedInquiry = inquiryDetailsRepository.save(inquiryDetails);
             EmailRequest  emailRequest = new EmailRequest();

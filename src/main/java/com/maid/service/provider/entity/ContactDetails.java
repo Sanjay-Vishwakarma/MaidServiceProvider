@@ -23,9 +23,7 @@ public class ContactDetails {
     private String operatingSystem;   // (Optional) parsed from user agent
     private String deviceType;
     private String ipAddress;
-    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
-    private LocalDateTime createdAt;
-
+    private String createdAt;
     private String city;
     private String region;
     private String country;
