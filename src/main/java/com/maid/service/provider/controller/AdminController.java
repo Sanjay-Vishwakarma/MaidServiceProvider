@@ -61,7 +61,7 @@ public class AdminController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/getAllApllicants")
+    @PostMapping("/getAllApllicants")
     public ResponseEntity<PageableResponse<JobApplicationDTO>> getAllJobApplications(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
