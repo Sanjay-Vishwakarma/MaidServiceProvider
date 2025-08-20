@@ -87,7 +87,13 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowCredentials(true);
-        configuration.setAllowedOrigins(List.of("http://localhost:3000", "https://24inmaidservice.in"));
+        configuration.setAllowedOrigins(List.of(
+                "http://localhost:3000",
+                "https://24inmaidservice.in",
+                "https://www.24inmaidservice.in",
+                "http://192.168.0.104:3000"
+        ));
+
 //        configuration.setAllowedOriginPatterns(List.of("*")); // Use allowedOriginPatterns instead of allowedOrigins
 
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
