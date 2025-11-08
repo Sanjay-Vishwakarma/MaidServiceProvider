@@ -61,7 +61,7 @@ public  class MaidServiceImpl implements MaidService {
             emailRequest.setMessage(contactDetails.getDescription());
             emailRequest.setMailType("Contact");
             // send the email
-            Response response = emailService.sendMail(emailRequest);
+//            Response response = emailService.sendMail(emailRequest);
 //            System.out.println("email contact : "+response);
 
             return new Response(201, "Contact details saved successfully", savedContact);
@@ -98,7 +98,7 @@ public  class MaidServiceImpl implements MaidService {
             emailRequest.setMessage(inquiryDetailsDto.getDescription());
             emailRequest.setMailType("Inquiry");
             // send the email
-            Response response = emailService.sendMail(emailRequest);
+//            Response response = emailService.sendMail(emailRequest);
 
 
             // Return success response

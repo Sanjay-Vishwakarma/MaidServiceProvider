@@ -5,5 +5,5 @@ import com.maid.service.provider.util.Response;
 import jakarta.validation.Valid;
 
 public interface EmailService {
-    Response sendMail( EmailRequest emailRequest);
+//    Response sendMail( EmailRequest emailRequest);
 }

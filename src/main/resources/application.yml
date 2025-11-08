@@ -11,22 +11,22 @@ spring:
     name: MaidServiceProvider
   profiles:
     active: prod  # Default profile; can be changed to 'prod' or overridden at runtime
-  mail:
-    host: smtp.gmail.com
-    port: 587
-    username: webhosttest2023@gmail.com
-    password: uaapgyupqjvtbjbz
-    protocol: smtp
-    default-encoding: UTF-8
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: webhosttest2023@gmail.com
+#    password: uaapgyupqjvtbjbz
+#    protocol: smtp
+#    default-encoding: UTF-8
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
+#          connectiontimeout: 5000
+#          timeout: 5000
+#          writetimeout: 5000
 
   security:
     filter:
