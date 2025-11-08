@@ -1,11 +1,11 @@
 package com.maid.service.provider.serviceImpl;
 
-import com.maid.service.provider.dto.EmailRequest;
+//import com.maid.service.provider.dto.EmailRequest;
 import com.maid.service.provider.dto.JobApplicationDTO;
 import com.maid.service.provider.entity.JobApplication;
 import com.maid.service.provider.helper.PageableResponse;
 import com.maid.service.provider.repository.JobApplicationRepository;
-import com.maid.service.provider.service.EmailService;
+//import com.maid.service.provider.service.EmailService;
 import com.maid.service.provider.service.JobApplicationService;import com.maid.service.provider.util.Functions;
 import com.maid.service.provider.util.Response;
 import org.modelmapper.ModelMapper;
@@ -29,18 +29,18 @@ public class JobApplicationServiceImpl  implements JobApplicationService {
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private EmailService emailService;
+//    @Autowired
+//    private EmailService emailService;
 
     @Override
     public void saveJobApplication(JobApplication jobApplication) {
         jobApplicationRepository.save(jobApplication);
-        EmailRequest emailRequest = new EmailRequest();
-        emailRequest.setMobileNumber(jobApplication.getMobile());
-        emailRequest.setEmail("For job application");
-        emailRequest.setRecipientName(jobApplication.getFullName());
-        emailRequest.setMessage(jobApplication.getWorkLocation());
-        emailRequest.setMailType("Job");
+//        EmailRequest emailRequest = new EmailRequest();
+//        emailRequest.setMobileNumber(jobApplication.getMobile());
+//        emailRequest.setEmail("For job application");
+//        emailRequest.setRecipientName(jobApplication.getFullName());
+//        emailRequest.setMessage(jobApplication.getWorkLocation());
+//        emailRequest.setMailType("Job");
         // send the email
 //        Response response = emailService.sendMail(emailRequest);
 //            System.out.println("email contact : "+response);
