@@ -2,7 +2,7 @@ package com.maid.service.provider.serviceImpl;
 
 
 import com.maid.service.provider.dto.ContactDto;
-import com.maid.service.provider.dto.EmailRequest;
+//import com.maid.service.provider.dto.EmailRequest;
 import com.maid.service.provider.dto.FeedBackDto;
 import com.maid.service.provider.dto.InquiryDetailsDto;
 import com.maid.service.provider.entity.ContactDetails;
@@ -13,7 +13,7 @@ import com.maid.service.provider.helper.PageableResponse;
 import com.maid.service.provider.repository.ContactRepository;
 import com.maid.service.provider.repository.FeedbackRepository;
 import com.maid.service.provider.repository.InquiryDetailsRepository;
-import com.maid.service.provider.service.EmailService;
+//import com.maid.service.provider.service.EmailService;
 import com.maid.service.provider.service.MaidService;
 import com.maid.service.provider.util.Functions;
 import com.maid.service.provider.util.Response;
@@ -44,9 +44,9 @@ public  class MaidServiceImpl implements MaidService {
 
     @Autowired
     private PageHelper pageHelper;
-
-    @Autowired
-    private EmailService emailService;
+//
+//    @Autowired
+//    private EmailService emailService;
 
     @Override
     public Response saveContactDetails(ContactDto contactDto) {
@@ -54,12 +54,12 @@ public  class MaidServiceImpl implements MaidService {
             ContactDetails contactDetails = modelMapper.map(contactDto, ContactDetails.class);
             contactDetails.setCreatedAt(Functions.getCurrentDateTimeIST());
             ContactDetails savedContact = contactRepository.save(contactDetails);
-            EmailRequest  emailRequest = new EmailRequest();
-            emailRequest.setMobileNumber(contactDetails.getPhoneNumber());
-            emailRequest.setEmail(contactDetails.getEmail());
-            emailRequest.setRecipientName(contactDetails.getFullName());
-            emailRequest.setMessage(contactDetails.getDescription());
-            emailRequest.setMailType("Contact");
+//            EmailRequest  emailRequest = new EmailRequest();
+//            emailRequest.setMobileNumber(contactDetails.getPhoneNumber());
+//            emailRequest.setEmail(contactDetails.getEmail());
+//            emailRequest.setRecipientName(contactDetails.getFullName());
+//            emailRequest.setMessage(contactDetails.getDescription());
+//            emailRequest.setMailType("Contact");
             // send the email
 //            Response response = emailService.sendMail(emailRequest);
 //            System.out.println("email contact : "+response);
@@ -91,12 +91,12 @@ public  class MaidServiceImpl implements MaidService {
             inquiryDetails.setCreatedAt(Functions.getCurrentDateTimeIST());
             // Save to DB
             InquiryDetails savedInquiry = inquiryDetailsRepository.save(inquiryDetails);
-            EmailRequest  emailRequest = new EmailRequest();
-            emailRequest.setMobileNumber(inquiryDetailsDto.getPhone());
-            emailRequest.setEmail(inquiryDetailsDto.getEmail());
-            emailRequest.setRecipientName(inquiryDetailsDto.getName());
-            emailRequest.setMessage(inquiryDetailsDto.getDescription());
-            emailRequest.setMailType("Inquiry");
+//            EmailRequest  emailRequest = new EmailRequest();
+//            emailRequest.setMobileNumber(inquiryDetailsDto.getPhone());
+//            emailRequest.setEmail(inquiryDetailsDto.getEmail());
+//            emailRequest.setRecipientName(inquiryDetailsDto.getName());
+//            emailRequest.setMessage(inquiryDetailsDto.getDescription());
+//            emailRequest.setMailType("Inquiry");
             // send the email
 //            Response response = emailService.sendMail(emailRequest);
 
